@@ -12,45 +12,48 @@
 #include <linux/prctl.h>
 #include <cutils/sockets.h>
 #include <telephony/ril.h>
-#include <media/AudioSystem.h>
+//#include <media/AudioSystem.h>
+#include <system/audio.h>
 
 #define AUDIO_REQUEST_FORCE_COMMUNICATION 2000
 #define AUDIO_REQUEST_SPEAKER_ON_OFF  2001
 #define AUDIO_REQUEST_MIC_MUTE_UNMUTE 2002
 #define AUDIO_REQUEST_MODE_NORMAL 2003
 
-using namespace android;
+//using namespace android;
 
-int onAudioRequest(int request) {
-  switch(request) {
-    case AUDIO_REQUEST_FORCE_COMMUNICATION: 
-      printf("AUDIO_REQUEST_FORCE_COMMUNICATION\n");
-      AudioSystem::setPhoneState(AudioSystem::MODE_IN_CALL);
-      AudioSystem::setForceUse(AudioSystem::FOR_COMMUNICATION, AudioSystem::FORCE_NONE);
-      return 0;
-    case AUDIO_REQUEST_SPEAKER_ON_OFF: 
-      printf("AUDIO_REQUEST_SPEAKER_ON_OFF\n");
-      AudioSystem::setPhoneState(AudioSystem::MODE_IN_CALL);
-      AudioSystem::setForceUse(AudioSystem::FOR_COMMUNICATION,
-          AudioSystem::getForceUse(AudioSystem::FOR_COMMUNICATION) == 
-          AudioSystem::FORCE_NONE ? AudioSystem::FORCE_SPEAKER : AudioSystem::FORCE_NONE);
-      return 0;
-    case AUDIO_REQUEST_MIC_MUTE_UNMUTE: 
-      printf("AUDIO_REQUEST_MIC_MUTE_UNMUTE\n");
-      bool state;
-      AudioSystem::isMicrophoneMuted(&state);
-      state ? AudioSystem::setPhoneState(AudioSystem::MODE_IN_CALL) :
-        AudioSystem::setPhoneState(AudioSystem::MODE_IN_COMMUNICATION);    
-      return 0;
-    case AUDIO_REQUEST_MODE_NORMAL: 
-      printf("AUDIO_REQUEST_MODE_NORMAL\n");
-      AudioSystem::setPhoneState(AudioSystem::MODE_NORMAL);
-      return 0;
-    default: 
-      printf("UNKNOWN REQUEST\n");
-      return 1;
-  }
-}
+//// NOTE vmx 2017-05-29: This might help with the new audio API:
+//// https://github.com/ghsr/android_device_samsung_i9152/commit/76e65d8855e398e1e55905f32baa001b552ed080
+//int onAudioRequest(int request) {
+//  switch(request) {
+//    case AUDIO_REQUEST_FORCE_COMMUNICATION: 
+//      printf("AUDIO_REQUEST_FORCE_COMMUNICATION\n");
+//      AudioSystem::setPhoneState(AudioSystem::MODE_IN_CALL);
+//      AudioSystem::setForceUse(AudioSystem::FOR_COMMUNICATION, AudioSystem::FORCE_NONE);
+//      return 0;
+//    case AUDIO_REQUEST_SPEAKER_ON_OFF: 
+//      printf("AUDIO_REQUEST_SPEAKER_ON_OFF\n");
+//      AudioSystem::setPhoneState(AudioSystem::MODE_IN_CALL);
+//      AudioSystem::setForceUse(AudioSystem::FOR_COMMUNICATION,
+//          AudioSystem::getForceUse(AudioSystem::FOR_COMMUNICATION) == 
+//          AudioSystem::FORCE_NONE ? AudioSystem::FORCE_SPEAKER : AudioSystem::FORCE_NONE);
+//      return 0;
+//    case AUDIO_REQUEST_MIC_MUTE_UNMUTE: 
+//      printf("AUDIO_REQUEST_MIC_MUTE_UNMUTE\n");
+//      bool state;
+//      AudioSystem::isMicrophoneMuted(&state);
+//      state ? AudioSystem::setPhoneState(AudioSystem::MODE_IN_CALL) :
+//        AudioSystem::setPhoneState(AudioSystem::MODE_IN_COMMUNICATION);    
+//      return 0;
+//    case AUDIO_REQUEST_MODE_NORMAL: 
+//      printf("AUDIO_REQUEST_MODE_NORMAL\n");
+//      AudioSystem::setPhoneState(AudioSystem::MODE_NORMAL);
+//      return 0;
+//    default: 
+//      printf("UNKNOWN REQUEST\n");
+//      return 1;
+//  }
+//}
 
 const char *
 requestToString(int request) {
@@ -85,8 +88,8 @@ switch(request) {
   case RIL_REQUEST_UDUB: return "UDUB";
   case RIL_REQUEST_LAST_CALL_FAIL_CAUSE: return "LAST_CALL_FAIL_CAUSE";
   case RIL_REQUEST_SIGNAL_STRENGTH: return "SIGNAL_STRENGTH";
-  case RIL_REQUEST_REGISTRATION_STATE: return "REGISTRATION_STATE";
-  case RIL_REQUEST_GPRS_REGISTRATION_STATE: return "GPRS_REGISTRATION_STATE";
+//  case RIL_REQUEST_REGISTRATION_STATE: return "REGISTRATION_STATE";
+//  case RIL_REQUEST_GPRS_REGISTRATION_STATE: return "GPRS_REGISTRATION_STATE";
   case RIL_REQUEST_OPERATOR: return "OPERATOR";
   case RIL_REQUEST_RADIO_POWER: return "RADIO_POWER";
   case RIL_REQUEST_DTMF: return "DTMF";
@@ -139,7 +142,7 @@ switch(request) {
   case RIL_REQUEST_SCREEN_STATE: return "SCREEN_STATE";
   case RIL_REQUEST_EXPLICIT_CALL_TRANSFER: return "EXPLICIT_CALL_TRANSFER";
   case RIL_REQUEST_SET_LOCATION_UPDATES: return "SET_LOCATION_UPDATES";
-  case RIL_REQUEST_CDMA_SET_SUBSCRIPTION:return"CDMA_SET_SUBSCRIPTION";
+//  case RIL_REQUEST_CDMA_SET_SUBSCRIPTION:return"CDMA_SET_SUBSCRIPTION";
   case RIL_REQUEST_CDMA_SET_ROAMING_PREFERENCE:return"CDMA_SET_ROAMING_PREFERENCE";
   case RIL_REQUEST_CDMA_QUERY_ROAMING_PREFERENCE:return"CDMA_QUERY_ROAMING_PREFERENCE";
   case RIL_REQUEST_SET_TTY_MODE:return"SET_TTY_MODE";
@@ -167,7 +170,7 @@ switch(request) {
   case RIL_REQUEST_REPORT_STK_SERVICE_IS_RUNNING: return "REPORT_STK_SERVICE_IS_RUNNING";
   case RIL_UNSOL_RESPONSE_RADIO_STATE_CHANGED: return "UNSOL_RESPONSE_RADIO_STATE_CHANGED";
   case RIL_UNSOL_RESPONSE_CALL_STATE_CHANGED: return "UNSOL_RESPONSE_CALL_STATE_CHANGED";
-  case RIL_UNSOL_RESPONSE_NETWORK_STATE_CHANGED: return "UNSOL_RESPONSE_NETWORK_STATE_CHANGED";
+//  case RIL_UNSOL_RESPONSE_NETWORK_STATE_CHANGED: return "UNSOL_RESPONSE_NETWORK_STATE_CHANGED";
   case RIL_UNSOL_RESPONSE_NEW_SMS: return "UNSOL_RESPONSE_NEW_SMS";
   case RIL_UNSOL_RESPONSE_NEW_SMS_STATUS_REPORT: return "UNSOL_RESPONSE_NEW_SMS_STATUS_REPORT";
   case RIL_UNSOL_RESPONSE_NEW_SMS_ON_SIM: return "UNSOL_RESPONSE_NEW_SMS_ON_SIM";
@@ -206,16 +209,16 @@ switch(request) {
  */
 void switchUser()
 {
-  prctl(PR_SET_KEEPCAPS, 1, 0, 0, 0);
-  setuid(1001);
-
-  struct __user_cap_header_struct header;
-  struct __user_cap_data_struct cap;
-  header.version = _LINUX_CAPABILITY_VERSION;
-  header.pid = 0;
-  cap.effective = cap.permitted = 1 << CAP_NET_ADMIN;
-  cap.inheritable = 0;
-  capset(&header, &cap);
+//  prctl(PR_SET_KEEPCAPS, 1, 0, 0, 0);
+//  setuid(1001);
+// 
+//  struct __user_cap_header_struct header;
+//  struct __user_cap_data_struct cap;
+//  header.version = _LINUX_CAPABILITY_VERSION;
+//  header.pid = 0;
+//  cap.effective = cap.permitted = 1 << CAP_NET_ADMIN;
+//  cap.inheritable = 0;
+//  capset(&header, &cap);
 }
 
 static int
@@ -335,7 +338,7 @@ int main(int argc, char **argv) {
           printf("Message = %d\n", req);
           if(req > RIL_UNSOL_RESEND_INCALL_MUTE) {
             printf("Audio message\n");
-            onAudioRequest(req);
+            //onAudioRequest(req);
           } else {
             printf("RIL Message = %d %s\n", req, requestToString(req));
             blockingWrite(fd, data, ret);
