@@ -17,6 +17,11 @@
 #include <cutils/sockets.h>
 
 
+#include <android/log.h>
+#define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
+#define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
+
+
 void switchUser() {
   prctl(PR_SET_KEEPCAPS, 1, 0, 0, 0);
   setuid(1001);
