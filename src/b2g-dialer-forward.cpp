@@ -13,12 +13,11 @@
 #include <cutils/sockets.h>
 #include <telephony/ril.h>
 //#include <media/AudioSystem.h>
-#include <system/audio.h>
 
-#define AUDIO_REQUEST_FORCE_COMMUNICATION 2000
-#define AUDIO_REQUEST_SPEAKER_ON_OFF  2001
-#define AUDIO_REQUEST_MIC_MUTE_UNMUTE 2002
-#define AUDIO_REQUEST_MODE_NORMAL 2003
+//#define AUDIO_REQUEST_FORCE_COMMUNICATION 2000
+//#define AUDIO_REQUEST_SPEAKER_ON_OFF  2001
+//#define AUDIO_REQUEST_MIC_MUTE_UNMUTE 2002
+//#define AUDIO_REQUEST_MODE_NORMAL 2003
 
 //using namespace android;
 

@@ -14,7 +14,10 @@ LOCAL_PATH:= $(call my-dir)
 
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES:= src/b2g-dialer-forward.cpp
-LOCAL_C_INCLUDES := "$(AOSP_ROOT)/system/core/include/" "$(AOSP_ROOT)/hardware/ril/include" "$(AOSP_ROOT)/frameworks/base/include" "$(AOSP_ROOT)/frameworks/av/include" "$(AOSP_ROOT)/hardware/libhardware/include" "$(AOSP_ROOT)/system/media/audio/include" "$(AOSP_ROOT)/frameworks/native/include" "$(AOSP_ROOT)/libnativehelper/include"
+# NOTE vmx 2017-05-29: All those includes are for the audio part that is
+# currently commented out anyway
+#LOCAL_C_INCLUDES := "$(AOSP_ROOT)/system/core/include/" "$(AOSP_ROOT)/hardware/ril/include" "$(AOSP_ROOT)/frameworks/base/include" "$(AOSP_ROOT)/frameworks/av/include" "$(AOSP_ROOT)/hardware/libhardware/include" "$(AOSP_ROOT)/system/media/audio/include" "$(AOSP_ROOT)/frameworks/native/include" "$(AOSP_ROOT)/libnativehelper/include"
+LOCAL_C_INCLUDES := "$(AOSP_ROOT)/system/core/include/" "$(AOSP_ROOT)/hardware/ril/include"
 #LOCAL_LDLIBS := -llog -lcutils -L"/home/vmx/src/c/b2g/asop/out/target/product/generic/system/lib"
 LOCAL_CPPFLAGS := -std=c++11
 LOCAL_CFLAGS := -Wno-gnu-designator
