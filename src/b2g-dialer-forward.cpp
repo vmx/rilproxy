@@ -262,7 +262,7 @@ int main(int argc, char **argv) {
   }
 
   net_connect = socket_inaddr_any_server(
-      5555,
+      8675,
       SOCK_STREAM );
   if(net_connect < 0)
   {
