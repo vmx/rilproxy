@@ -18,3 +18,6 @@ access the `/dev/socket/rild`. To prevent that you can make it point somewhere
 else. Edit from AOSP the
 `frameworks/opt/telephony/src/java/com/android/internal/telephony/RIL.java` and
 change the value(s) of the `SOCKET_NAME_RIL` constant to something else.
+
+The `doc` directory contains some information that is outdated, but it still
+contains some valuable bits, hence it wasn't removed.
