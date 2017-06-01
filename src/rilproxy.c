@@ -46,11 +46,11 @@
 #include <poll.h>
 #include <pwd.h>
 #include <netinet/in.h>
+#include <sys/capability.h>
+#include <sys/prctl.h>
 #include <sys/un.h>
 #include <sys/socket.h>
 #include <sys/stat.h>
-#include <linux/capability.h>
-#include <linux/prctl.h>
 #define LOG_TAG "RILPROXY"
 #include <utils/Log.h>
 #include <cutils/sockets.h>
