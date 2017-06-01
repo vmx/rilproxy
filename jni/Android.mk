@@ -1,5 +1,3 @@
-AOSP_ROOT := /home/vmx/src/c/b2g/asop
-
 LOCAL_PATH:= $(call my-dir)
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES:= rilproxy.c
